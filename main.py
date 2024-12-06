@@ -1,5 +1,5 @@
 from tkinter import Tk
-from ventanas.piezas import VentanaPiezas
+from frontend.ventanas.piezas import VentanaPiezas
 
 root = Tk()
 app = VentanaPiezas(root)

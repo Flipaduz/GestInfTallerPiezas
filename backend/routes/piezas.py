@@ -1,9 +1,9 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from backend.models.tPiezas import TPiezas
 
 piezas_bp = Blueprint('piezas', __name__)
 
 @piezas_bp.route('/piezas', methods=['GET'])
-def get_piezas():
+def obtener_piezas():
     piezas = TPiezas.query.all()
-    return jsonify([{"id": p.id, "nombre": p.nombre, "descripcion": p.descripcion} for p in piezas])
+    return {'piezas': [pieza.to_dict() for pieza in piezas]}

@@ -1,8 +1,19 @@
+import pymysql
+pymysql.install_as_MySQLdb()
+
 from flask import Flask
-from backend.routes.piezas import piezas_bp
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.register_blueprint(piezas_bp)
+db = SQLAlchemy()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://@localhost/TrabajoGI2425?driver=ODBC+Driver+17+for+SQL+Server&trusted_connection=yes'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+
+    # Registrar rutas
+    from backend.routes.piezas import piezas_bp
+    app.register_blueprint(piezas_bp)
+
+    return app
