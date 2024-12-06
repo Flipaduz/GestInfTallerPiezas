@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import requests
-from frontend.utils import obtener_datos
-from frontend.ventanas.piezas import VentanaPiezas  # Aquí se importa la ventana de piezas
+from frontend.ventanas.piezas_taller import VentanaPiezasTaller  # Aquí se importa la ventana de piezas
 
 class VentanaLogin:
     def __init__(self, master):
@@ -54,7 +53,7 @@ class VentanaLogin:
         self.master.mainloop()
 
     def iniciar_sesion(self):
-        # Lógica de validación del login
+        # Lógica de validacion del login
         usuario = self.user_entry.get()
         password = self.pass_entry.get()
 
@@ -64,7 +63,7 @@ class VentanaLogin:
         try:
             response = requests.post(url, json=data)
             if response.status_code == 200:
-                self.master.quit()
+                self.master.destroy()
                 self.abrir_ventana_piezas()
             else:
                 messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
@@ -74,5 +73,5 @@ class VentanaLogin:
     def abrir_ventana_piezas(self):
         # Esta función maneja la creación de la ventana de piezas
         root_piezas = tk.Tk()  # Crear nueva ventana
-        app = VentanaPiezas(root_piezas)  # Crear la instancia de la ventana de piezas
+        VentanaPiezasTaller(root_piezas)  # Crear la instancia de la ventana de piezas
         root_piezas.mainloop()  # Ejecutar la ventana de piezas
