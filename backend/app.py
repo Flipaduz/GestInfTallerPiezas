@@ -15,5 +15,7 @@ def create_app():
     # Registrar rutas
     from backend.routes.piezas import piezas_bp
     app.register_blueprint(piezas_bp)
+    from backend.routes.login import auth
+    app.register_blueprint(auth)
 
     return app
