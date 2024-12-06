@@ -10,6 +10,7 @@ def iniciar_app():
     
     # Ejecutar la ventana de login y esperar si es correcto
     login.iniciar_login()  # El flujo de la ventana de login se maneja desde aquí
-
+    
+    
 # Iniciar la aplicación
 iniciar_app()

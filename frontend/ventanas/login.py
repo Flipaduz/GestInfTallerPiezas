@@ -65,6 +65,7 @@ class VentanaLogin:
             if response.status_code == 200:
                 self.master.destroy()
                 self.abrir_ventana_piezas()
+                self.master.quit()
             else:
                 messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
         except requests.exceptions.RequestException as e:
