@@ -58,22 +58,30 @@ class VentanaLogin:
         password = self.pass_entry.get()
 
         url = "http://127.0.0.1:5000/login"
-        data = {"usuario": usuario, "password": password}
+        data = {"usuario": usuario, "password": password, "pantalla": "PIEZAS"}
         
         try:
             response = requests.post(url, json=data)
             if response.status_code == 200:
+<<<<<<< Updated upstream
                 self.usuario= usuario #Guardamos nombre del usuario en esta sesion
+=======
+                permisos = response.json()
+>>>>>>> Stashed changes
                 self.master.destroy()
-                self.abrir_ventana_piezas()
+                self.abrir_ventana_piezas(permisos)
                 self.master.quit()
             else:
                 messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
         except requests.exceptions.RequestException as e:
             messagebox.showerror("Error", f"No se puedo conectar al servidor: {e}")
 
-    def abrir_ventana_piezas(self):
+    def abrir_ventana_piezas(self, permisos):
         # Esta función maneja la creación de la ventana de piezas
         root_piezas = tk.Tk()  # Crear nueva ventana
+<<<<<<< Updated upstream
         VentanaPiezasTaller(root_piezas, self.usuario)  # Crear la instancia de la ventana de piezas
+=======
+        VentanaPiezasTaller(root_piezas, permisos)  # Pasar permisos a la ventana de piezas
+>>>>>>> Stashed changes
         root_piezas.mainloop()  # Ejecutar la ventana de piezas
