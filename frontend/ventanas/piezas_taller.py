@@ -6,17 +6,9 @@ from backend.models.tPiezas import TPiezas
 
 
 class VentanaPiezasTaller:
-<<<<<<< Updated upstream
-    def __init__(self, master, usuario_nombre):
-        self.master = master
-        self.master.title("Piezas Taller")
-        self.master.geometry("600x450")
-        self.usuario_nombre = usuario_nombre
-=======
     def __init__(self, master, permisos):
         self.master = master
         self.permisos = permisos
->>>>>>> Stashed changes
 
         self.master.title("Piezas Taller")
         self.master.geometry("800x600")  # Ventana más grande
@@ -185,28 +177,16 @@ class VentanaPiezasTaller:
         if not seleccion:
             messagebox.showerror("Error", "Debe seleccionar un tipo de pieza.")
             return
-<<<<<<< Updated upstream
-        url_usuario = "http://127.0.0.1:5000/user_tipo/admin"
-        data_usuario = {"nombre": self.usuario_nombre}
-=======
         # Acceder a la API e insertar la nueva pieza
         url = "http://127.0.0.1:5000/piezas/insertar"
         data = {"nombre": nombre, "fabricante": fabricante, "id_tipo": self.tipos_dict.get(self.listbox_tipos.get(seleccion[0]))}
->>>>>>> Stashed changes
         try:
-            #Comprobamos que el usuario sea del tipo Administrador (unicos capaces de insertar)
-            response_admin = requests.post(url_usuario, json=data_usuario)
-            if response_admin.status_code == 200:
-                url = "http://127.0.0.1:5000/piezas/insertar"
-                data = {"nombre": nombre, "fabricante": fabricante, "id_tipo": self.tipos_dict.get(self.listbox_tipos.get(seleccion[0]))}
-                response = requests.post(url, json=data)
-                if response.status_code == 201:
-                    self.limpiar_seleccion()
-                    self.mostrar_piezas()
-                else:
-                    messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
+            response = requests.post(url, json=data)
+            if response.status_code == 201:
+                self.limpiar_seleccion()
+                self.mostrar_piezas()
             else:
-                    messagebox.showerror("Error", response_admin.json().get("message", "Error desconocido"))
+                messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
         except requests.exceptions.RequestException as e:
                 messagebox.showerror("Error", f"No se puedo conectar al servidor: {e}")
 
@@ -264,3 +244,9 @@ class VentanaPiezasTaller:
                     messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
             except requests.exceptions.RequestException as e:
                     messagebox.showerror("Error", f"No se puedo conectar al servidor: {e}")
+            
+
+
+
+
+            
