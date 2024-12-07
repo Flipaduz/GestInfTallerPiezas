@@ -63,6 +63,7 @@ class VentanaLogin:
         try:
             response = requests.post(url, json=data)
             if response.status_code == 200:
+                self.usuario= usuario #Guardamos nombre del usuario en esta sesion
                 self.master.destroy()
                 self.abrir_ventana_piezas()
                 self.master.quit()
@@ -74,5 +75,5 @@ class VentanaLogin:
     def abrir_ventana_piezas(self):
         # Esta función maneja la creación de la ventana de piezas
         root_piezas = tk.Tk()  # Crear nueva ventana
-        VentanaPiezasTaller(root_piezas)  # Crear la instancia de la ventana de piezas
+        VentanaPiezasTaller(root_piezas, self.usuario)  # Crear la instancia de la ventana de piezas
         root_piezas.mainloop()  # Ejecutar la ventana de piezas

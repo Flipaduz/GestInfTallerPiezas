@@ -15,3 +15,9 @@ class Usuario(db.Model):
         # Este método consulta la base de datos para ver si el usuario y la contraseña coinciden
         usuario_obj = cls.query.filter_by(nombre=user, password=pw).first()
         return usuario_obj is not None
+
+    @classmethod
+    def es_admin(cls, nombre):
+        # Método que devuelve True si el usuario es administrador, False en caso contrario
+        usuario = cls.query.filter_by(nombre=nombre).first()
+        return usuario is not None and usuario.rolName == "administrador"
