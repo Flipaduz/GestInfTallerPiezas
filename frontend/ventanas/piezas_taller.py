@@ -18,13 +18,13 @@ class VentanaPiezasTaller:
         self.label_tipos.place(x=200, y=40)
 
         # Listbox Materias
-        self.listbox_tipos = tk.Listbox(self.master, width=40, height=10)  # Listbox más grande
+        self.listbox_tipos = tk.Listbox(self.master, width=40, height=10)
         self.listbox_tipos.place(x=300, y=40, height=150)
         self.listbox_tipos.bind("<<ListboxSelect>>", self.seleccion_listbox)
 
         # Treeview Piezas
         self.treeview_piezas = ttk.Treeview(self.master, columns=("id", "nombre", "fabricante", "id_tipo"), show="headings", height=10)
-        self.treeview_piezas.place(x=50, y=220, width=700)  # Aumentado el ancho
+        self.treeview_piezas.place(x=50, y=220, width=700)
         self.treeview_piezas.bind("<<TreeviewSelect>>", self.seleccion_treeview)
 
         # Columnas treeview
@@ -56,6 +56,10 @@ class VentanaPiezasTaller:
         self.entry_fabricante = tk.Entry(self.master, textvariable=self.nombre_var)
         self.entry_fabricante.place(x=110, y=500, width=600)
 
+        if not self.permisos.get("modificacion"):
+            self.entry_nombre.config(state="readonly")
+            self.entry_fabricante.config(state="readonly")
+
         # Botón Insertar
         self.insert_button = tk.Button(self.master, text="Insertar", command=self.insertar_pieza)
         self.insert_button.place(x=90, y=550, width=70)
@@ -78,6 +82,11 @@ class VentanaPiezasTaller:
 
         self.cargar_tipos_piezas()
         self.configurar_botones()
+
+
+
+    def bloquear_seleccion(self, event):
+        return "break"
 
 
 
@@ -104,6 +113,8 @@ class VentanaPiezasTaller:
                 for tipo in tipos:
                     self.listbox_tipos.insert(tk.END, tipo["Nombre"])
                     self.tipos_dict[tipo["Nombre"]] = tipo["Id_tipo"]
+                if not self.permisos.get("acceso"):
+                    self.listbox_tipos.config(state="disabled")
             else:
                 tk.messagebox.showerror("Error", "No se pudieron cargar los tipos de piezas.")
         except Exception as e:
@@ -152,9 +163,9 @@ class VentanaPiezasTaller:
         # Si hay un elemento seleccionado, mostramos su información
         item_id = self.treeview_piezas.focus()
         if item_id != "":
-          valores = self.treeview_piezas.item(item_id, "values")
-          self.nombre_var.set(valores[2])
-          self.fabricante_var.set(valores[1])
+            valores = self.treeview_piezas.item(item_id, "values")
+            self.nombre_var.set(valores[2])
+            self.fabricante_var.set(valores[1])
 
 
 
