@@ -244,9 +244,3 @@ class VentanaPiezasTaller:
                     messagebox.showerror("Error", response.json().get("message", "Error desconocido"))
             except requests.exceptions.RequestException as e:
                     messagebox.showerror("Error", f"No se puedo conectar al servidor: {e}")
-            
-
-
-
-
-            
