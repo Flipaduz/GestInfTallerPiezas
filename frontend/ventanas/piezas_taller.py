@@ -20,25 +20,32 @@ class VentanaPiezasTaller:
         # Listbox Materias
         self.listbox_tipos = tk.Listbox(self.master, width=40, height=10)
         self.listbox_tipos.place(x=300, y=40, height=150)
+        #Selecciono el elemento, llamo seleccion_listbox
         self.listbox_tipos.bind("<<ListboxSelect>>", self.seleccion_listbox)
 
         # Treeview Piezas
         self.treeview_piezas = ttk.Treeview(self.master, columns=("id", "nombre", "fabricante", "id_tipo"), show="headings", height=10)
         self.treeview_piezas.place(x=50, y=220, width=700)
+        #Selecciono el elemento del Treeview se llama seleccion_treeview
         self.treeview_piezas.bind("<<TreeviewSelect>>", self.seleccion_treeview)
 
         # Columnas treeview
+
+        #Creamos columnas con sus nombres
         self.treeview_piezas.heading("id", text="ID")
         self.treeview_piezas.heading("nombre", text="NOMBRE")
         self.treeview_piezas.heading("fabricante", text="FABRICANTE")
         self.treeview_piezas.heading("id_tipo", text="ID_TIPO")
+
+        #Configuramos coolumnas
         self.treeview_piezas.column("id", width=50, anchor="center")
-        self.treeview_piezas.column("nombre", stretch=True)
+        self.treeview_piezas.column("nombre", stretch=True)  #Que se extire la columna de nombre
         self.treeview_piezas.column("fabricante", width=150, anchor="center")
         self.treeview_piezas.column("id_tipo", width=50, anchor="center")
 
-        self.nombre_var = tk.StringVar()
-        self.fabricante_var = tk.StringVar()
+        #Strings que se asocian a las cajas del texto (nombre y fabricante)
+        self.nombre_var = tk.StringVar()     
+        self.fabricante_var = tk.StringVar() 
 
         # Label Nombre
         self.label_nombre = tk.Label(self.master, text="Nombre")

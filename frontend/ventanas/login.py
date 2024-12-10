@@ -4,21 +4,25 @@ import requests
 from frontend.ventanas.piezas_taller import VentanaPiezasTaller  # Aquí se importa la ventana de piezas
 
 class VentanaLogin:
+    #master: ventana en sí
     def __init__(self, master):
         self.master = master
         self.master.title("Login")
         
         self.master.geometry("400x300")
-
+        
+        #Una columna que sea más grande que la otra
+        #minsize en pixeles
         self.master.grid_columnconfigure(0, weight=1, minsize=100)
         self.master.grid_columnconfigure(1, weight=2, minsize=100)
-        self.master.grid_rowconfigure(0, weight=1)
+        self.master.grid_rowconfigure(0, weight=1)  
         self.master.grid_rowconfigure(1, weight=1)
         self.master.grid_rowconfigure(2, weight=1)
         self.master.grid_rowconfigure(3, weight=1)
 
         #Label Welcome
         self.welcome_label = tk.Label(self.master, text = "Welcome", font = ("Arial", 24))
+        #columnspan : cuántas columnas ocupa
         self.welcome_label.grid(row=0, column=0, columnspan=2, padx=10, pady=20)
 
         # Label User
@@ -37,6 +41,7 @@ class VentanaLogin:
         self.pass_entry = tk.Entry(self.master, show="*")
         self.pass_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
         
+        #Columnas del mismo tamaño
         self.master.grid_columnconfigure(0, weight=1)
         self.master.grid_columnconfigure(1, weight=1)   
 

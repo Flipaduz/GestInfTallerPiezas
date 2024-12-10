@@ -75,4 +75,4 @@ def borrar_pieza(id_pieza):
         db.session.commit()
         return jsonify({"message": "Pieza borrada correctamente"}), 201
     except Exception as e:
-        return jsonify({"message": f"Error al agregar la pieza: {str(e)}"}), 500
+        return jsonify({"message": f"Error al borrar la pieza: {str(e)}"}), 500

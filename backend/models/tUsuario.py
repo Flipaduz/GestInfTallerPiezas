@@ -8,18 +8,8 @@ class TUsuario(db.Model):
     rolName = db.Column(db.String(50), db.ForeignKey('tRol.rolName'), nullable=False)
 
     rol = db.relationship('TRol', back_populates='usuarios')
-
+   
+    # Como si fuera un toString()
     def __repr__(self):
         return f'<Usuario {self.usuario}>'
 
-    @classmethod
-    def validar_usuario(cls, user, pw):
-        # Este método consulta la base de datos para ver si el usuario y la contraseña coinciden
-        usuario_obj = cls.query.filter_by(nombre=user, password=pw).first()
-        return usuario_obj is not None
-
-    @classmethod
-    def es_admin(cls, nombre):
-        # Método que devuelve True si el usuario es administrador, False en caso contrario
-        usuario = cls.query.filter_by(nombre=nombre).first()
-        return usuario is not None and usuario.rolName == "administrador"
